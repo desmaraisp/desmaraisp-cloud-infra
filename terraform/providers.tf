@@ -22,4 +22,7 @@ provider "aws" {
 provider "google-beta" {
   region = "us-central1"
 }
-provider "cloudflare" {}
+provider "cloudflare" {
+  email   = "philippe.desmarais4@gmail.com"
+  api_key = var.CLOUDFLARE_API_TOKEN
+}

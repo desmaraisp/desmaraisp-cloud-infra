@@ -28,8 +28,6 @@ jobs:
       - name: Create Plan Run
         uses: hashicorp/tfc-workflows-github/actions/create-run@v1.0.0
         id: plan-run
-        env:
-          CLOUDFLARE_API_TOKEN: ${{secrets.CLOUDFLARE_API_TOKEN}}
         with:
           organization: ${{ vars.TF_CLOUD_ORGANIZATION }}
           token: ${{ secrets.TF_API_TOKEN }}
