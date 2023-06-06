@@ -18,3 +18,15 @@ variable "SHARED_INFRA_PROJECT" {
 variable "GCP_ROOT_ORG" {
   type = string
 }
+
+variable "TFC_RANDOMIZER_WORKSPACE" {
+  type = string
+}
+
+variable "TFC_RANDOMIZER_PROJECT" {
+  type = string
+}
+
+variable "TFC_ORGANIZATION" {
+  type = string
+}
