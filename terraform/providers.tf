@@ -27,6 +27,7 @@ provider "aws" {
 }
 
 provider "google-beta" {
+  project = var.SHARED_INFRA_PROJECT
   region = "us-central1"
 }
 provider "cloudflare" {
