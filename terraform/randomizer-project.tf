@@ -4,9 +4,8 @@ resource "google_project" "randomizer-project" {
   org_id     = var.GCP_ROOT_ORG
 }
 
-
 resource "google_project_service" "gcp_services" {
-  project = google_project.randomizer-project.id
+  project = google_project.randomizer-project.project_id
   for_each = toset([
     "iam.googleapis.com",
     "cloudresourcemanager.googleapis.com",
@@ -16,20 +15,20 @@ resource "google_project_service" "gcp_services" {
   service = each.key
 }
 resource "google_service_account" "project_service_account" {
-  project      = google_project.randomizer-project.id
+  project      = google_project.randomizer-project.project_id
   account_id   = "oidc-tfc-service-account"
   display_name = "tfc service account"
 }
 
 resource "google_iam_workload_identity_pool" "main" {
-  project                   = google_project.randomizer-project.id
+  project                   = google_project.randomizer-project.project_id
   workload_identity_pool_id = "tfc-oidc-pool"
   description               = "Identity pool used by tfc OIDC to login"
   disabled                  = false
 }
 
 resource "google_iam_workload_identity_pool_provider" "main" {
-  project                            = google_project.randomizer-project.id
+  project                            = google_project.randomizer-project.project_id
   workload_identity_pool_id          = google_iam_workload_identity_pool.main.workload_identity_pool_id
   workload_identity_pool_provider_id = "tfc-oidc-pool-provider"
   description                        = "Identity pool used by tfc OIDC to login"
@@ -59,7 +58,7 @@ resource "google_service_account_iam_member" "wif-sa-workload" {
 }
 
 resource "google_project_iam_member" "sa-owner-role" {
-  project = google_project.randomizer-project.id
+  project = google_project.randomizer-project.project_id
   role    = "roles/owner"
   member  = "serviceAccount:${google_service_account.project_service_account.email}"
 }

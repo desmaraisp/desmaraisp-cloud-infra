@@ -28,7 +28,7 @@ provider "aws" {
 
 provider "google-beta" {
   project = var.SHARED_INFRA_PROJECT
-  region = "us-central1"
+  region = "us-east1"
 }
 provider "cloudflare" {
   api_token = var.CLOUDFLARE_API_TOKEN
