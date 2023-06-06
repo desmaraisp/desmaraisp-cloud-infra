@@ -3,11 +3,6 @@ name: "Terraform Plan"
 on:
   pull_request:
 
-env:
-  TF_API_TOKEN: ${{ secrets.TF_API_TOKEN }}
-  TF_WORKSPACE: ${{vars.TF_WORKSPACE}}
-  TF_CLOUD_ORGANIZATION: ${{vars.TF_CLOUD_ORGANIZATION}}
-
 permissions:
   contents: read
   pull-requests: write
@@ -24,15 +19,21 @@ jobs:
         uses: hashicorp/tfc-workflows-github/actions/upload-configuration@v1.0.0
         id: plan-upload
         with:
-          workspace: ${{ env.TF_WORKSPACE }}
+          organization: ${{ vars.TF_CLOUD_ORGANIZATION }}
+          token: ${{ secrets.TF_API_TOKEN }}
+          workspace: ${{ vars.TF_WORKSPACE }}
           directory: "./terraform/"
           speculative: true
 
       - name: Create Plan Run
         uses: hashicorp/tfc-workflows-github/actions/create-run@v1.0.0
         id: plan-run
+        env:
+          CLOUDFLARE_API_TOKEN: ${{secrets.CLOUDFLARE_API_TOKEN}}
         with:
-          workspace: ${{ env.TF_WORKSPACE }}
+          organization: ${{ vars.TF_CLOUD_ORGANIZATION }}
+          token: ${{ secrets.TF_API_TOKEN }}
+          workspace: ${{ vars.TF_WORKSPACE }}
           configuration_version: ${{ steps.plan-upload.outputs.configuration_version_id }}
           plan_only: true
 
@@ -40,6 +41,8 @@ jobs:
         uses: hashicorp/tfc-workflows-github/actions/plan-output@v1.0.0
         id: plan-output
         with:
+          organization: ${{ vars.TF_CLOUD_ORGANIZATION }}
+          token: ${{ secrets.TF_API_TOKEN }}
           plan: ${{ fromJSON(steps.plan-run.outputs.payload).data.relationships.plan.data.id }}
 
       - name: Update PR

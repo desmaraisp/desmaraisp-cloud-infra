@@ -5,11 +5,6 @@ on:
     branches:
       - main
 
-env:
-  TF_API_TOKEN: ${{ secrets.TF_API_TOKEN }}
-  TF_WORKSPACE: ${{vars.TF_WORKSPACE}}
-  TF_CLOUD_ORGANIZATION: ${{vars.TF_CLOUD_ORGANIZATION}}
-
 permissions:
   contents: read
 
@@ -25,14 +20,18 @@ jobs:
         uses: hashicorp/tfc-workflows-github/actions/upload-configuration@v1.0.0
         id: apply-upload
         with:
-          workspace: ${{ env.TF_WORKSPACE }}
+          organization: ${{ vars.TF_CLOUD_ORGANIZATION }}
+          token: ${{ secrets.TF_API_TOKEN }}
+          workspace: ${{ vars.TF_WORKSPACE }}
           directory: "./terraform/"
 
       - name: Create Apply Run
         uses: hashicorp/tfc-workflows-github/actions/create-run@v1.0.0
         id: apply-run
         with:
-          workspace: ${{ env.TF_WORKSPACE }}
+          organization: ${{ vars.TF_CLOUD_ORGANIZATION }}
+          token: ${{ secrets.TF_API_TOKEN }}
+          workspace: ${{ vars.TF_WORKSPACE }}
           configuration_version: ${{ steps.apply-upload.outputs.configuration_version_id }}
 
       - name: Apply
@@ -40,5 +39,7 @@ jobs:
         if: fromJSON(steps.apply-run.outputs.payload).data.attributes.actions.IsConfirmable
         id: apply
         with:
+          organization: ${{ vars.TF_CLOUD_ORGANIZATION }}
+          token: ${{ secrets.TF_API_TOKEN }}
           run: ${{ steps.apply-run.outputs.run_id }}
           comment: "Apply Run from GitHub Actions CI ${{ github.sha }}"
