@@ -1,5 +1,5 @@
 resource "cloudflare_email_routing_rule" "main" {
-  zone_id = "1452d4d6646a8641bd56c94f51970c50"
+  zone_id = var.CLOUDFLARE_ZONE_ID
   name    = "Forward GCP admin emails to GCP org owner"
   enabled = true
 
