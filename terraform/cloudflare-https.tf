@@ -1,4 +1,4 @@
-resource "cloudflare_zone_settings_override" "example-com-settings" {
+resource "cloudflare_zone_settings_override" "desmaraisp-com-settings" {
   zone_id = var.CLOUDFLARE_ZONE_ID
 
   settings {
