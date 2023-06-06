@@ -14,3 +14,8 @@ resource "cloudflare_email_routing_rule" "main" {
     value = ["philippe.desmarais4@gmail.com"]
   }
 }
+
+resource "cloudflare_email_routing_settings" "desmaraisp-com" {
+  zone_id = var.CLOUDFLARE_ZONE_ID
+  enabled = "true"
+}

@@ -1,4 +1,11 @@
 terraform {
+  cloud {
+    organization = "desmaraisp-org"
+    workspaces {
+      name = "desmaraisp-cloud-infra-workspace"
+    }
+  }
+
   required_providers {
     aws = {
       source  = "hashicorp/aws"
@@ -23,6 +30,5 @@ provider "google-beta" {
   region = "us-central1"
 }
 provider "cloudflare" {
-  email   = "philippe.desmarais4@gmail.com"
-  api_key = var.CLOUDFLARE_API_TOKEN
+  api_token = var.CLOUDFLARE_API_TOKEN
 }
