@@ -34,9 +34,3 @@ resource "tfe_variable" "randomizer-GCP-workload-provider" {
   category     = "env"
   workspace_id = tfe_workspace.randomizer.id
 }
-resource "tfe_variable" "randomizer-sentry-dsn" {
-  key          = "PUBLIC_SENTRY_DSN"
-  value        = data.sentry_key.randomizer-default.dsn_public
-  category     = "terraform"
-  workspace_id = tfe_workspace.randomizer.id
-}
