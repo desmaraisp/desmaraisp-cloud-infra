@@ -22,7 +22,7 @@ resource "google_service_account" "randomizer_service_account" {
 
 resource "google_iam_workload_identity_pool" "randomizer" {
   project                   = google_project.randomizer-project.project_id
-  workload_identity_pool_id = "tfc-oidc-pool"
+  workload_identity_pool_id = "tfc-oidc-pool2"
   description               = "Identity pool used by tfc OIDC to login"
   disabled                  = false
 }
@@ -30,7 +30,7 @@ resource "google_iam_workload_identity_pool" "randomizer" {
 resource "google_iam_workload_identity_pool_provider" "randomizer" {
   project                            = google_project.randomizer-project.project_id
   workload_identity_pool_id          = google_iam_workload_identity_pool.randomizer.workload_identity_pool_id
-  workload_identity_pool_provider_id = "tfc-oidc-pool-provider"
+  workload_identity_pool_provider_id = "tfc-oidc-pool-provider2"
   description                        = "Identity pool used by tfc OIDC to login"
   attribute_mapping = {
     "google.subject"                        = "assertion.sub",

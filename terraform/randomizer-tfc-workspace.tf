@@ -1,6 +1,6 @@
 resource "tfe_workspace" "randomizer" {
   name               = "randomizer-workspace"
-  organization       = "desmaraisp"
+  organization       = "desmaraisp-org"
   allow_destroy_plan = true
 }
 
