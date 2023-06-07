@@ -34,3 +34,9 @@ resource "tfe_variable" "randomizer-GCP-workload-provider" {
   category     = "env"
   workspace_id = tfe_workspace.randomizer.id
 }
+resource "tfe_variable" "randomizer-GCP-project-id" {
+  key          = "GCP_PROJECT_ID"
+  value        = google_project.randomizer-project.id
+  category     = "terraform"
+  workspace_id = tfe_workspace.randomizer.id
+}
