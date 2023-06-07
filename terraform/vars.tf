@@ -30,3 +30,7 @@ variable "TFC_RANDOMIZER_PROJECT" {
 variable "TFC_ORGANIZATION" {
   type = string
 }
+
+variable "SENTRY_ORG" {
+  type = string
+}
