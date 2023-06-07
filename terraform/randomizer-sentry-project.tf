@@ -26,3 +26,10 @@ resource "sentry_project" "randomizer" {
   name         = "randomizer"
   platform     = "javascript-nextjs"
 }
+
+data "sentry_key" "randomizer-default" {
+  organization = var.SENTRY_ORG
+  project      = sentry_project.randomizer.id
+
+  name = "Default"
+}

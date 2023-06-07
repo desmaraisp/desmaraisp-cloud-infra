@@ -23,6 +23,10 @@ terraform {
       source  = "cloudflare/cloudflare"
       version = "4.7.1"
     }
+	tfe = {
+      source = "hashicorp/tfe"
+      version = "0.45.0"
+    }
   }
 }
 
@@ -39,3 +43,4 @@ provider "cloudflare" {
 }
 
 provider "sentry" {}
+provider "tfe" {}
